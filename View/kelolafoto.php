@@ -3,10 +3,12 @@
 <!-- include koneksi -->
 <?php
 
-include("./query/koneksi.php");
-
+include("../query/koneksi.php");
+// ambil selurh data dari database
 $query = "SELECT * FROM foto";
 $result = mysqli_query($conn, $query);
+//kemudian pecah menjadi sebuah array
+
 
 ?>
 <main class="container mt-5 pt-5">
@@ -25,21 +27,27 @@ $result = mysqli_query($conn, $query);
                </tr>
           </thead>
           <tbody class="text-center">
-               <?php
 
-               if ($result->num_rows > 0) {
-               } ?>
+               <?php
+               $no = 1;
+               while ($data = mysqli_fetch_assoc($result)):               ?>
                <tr>
-                    <td>1</td>
-                    <td><img src="../asset/img/iphone-11.jpg" alt="foto" width="100px"></td>
-                    <td>foto 1</td>
-                    <td>ini adalah foto 1</td>
-                    <td>2021-10-10</td>
+                    <td><?= $no++; ?></td>
+                    <td><img src="../asset/img/<?= $data['LokasiFile']; ?>" alt="foto" width="100px"></td>
+                    <td><?= $data['JudulFoto']; ?></td>
                     <td>
-                         <a href="#" class="btn btn-primary">Edit</a>
-                         <a href="#" class="btn btn-danger">Delete</a>
+                         <?= $data['DeskripsiFoto']; ?>
+                    </td>
+                    <td><?= $data['TanggalUnggah']; ?> WITA</td>
+                    <td>
+                         <a href="EditFoto.php?FotoID=<?= $data['FotoID']; ?>" class="btn btn-primary btn-sm">Edit</a>
+                         <a href="../query/DeleteFoto.php?FotoID=<?=$data['FotoID']; ?>" class="btn btn-danger btn-sm"
+                              onclick=" return confirm('Apakah Anda Yakin?')">Hapus</a>
                     </td>
                </tr>
+
+               <?php endwhile; ?>
+
           </tbody>
      </table>
 </main>

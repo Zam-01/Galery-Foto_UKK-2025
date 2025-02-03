@@ -1,0 +1,56 @@
+
+                         <div class="card w-25">
+                              <div class="card-header">
+                                   <h5 class="card-title"><?= $data['JudulFoto']; ?></h5>
+                                   <p class="card-subtitle text-muted">Tanggal Upload: <?= $data['TanggalUnggah']; ?></p>
+                              </div>
+                              <div class="card-body">
+                                   <img src="../asset/img/<?= $data['LokasiFile']; ?>" alt="Foto" class="img-fluid">
+                                   <p class="card-text">Deskripsi: <?= $data['DeskripsiFoto']; ?></p>
+                              </div>
+                              <div class="card-footer">
+                                   <a href="EditFoto.php?FotoID=<?= $data['FotoID']; ?>" class="btn btn-primary">Edit</a>
+                                   <a href="DeleteFoto.php?FotoID=<?= $data['FotoID']; ?>" class="btn btn-danger">Hapus</a>
+                              </div>
+                         </div>
+
+
+                         <?php
+include 'config.php'; // Pastikan file koneksi database sudah ada
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+
+    // Ambil lokasi file gambar dari database berdasarkan ID
+    $query = "SELECT LokasiFile FROM foto WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $filePath = "img/" . $row['LokasiFile']; // Pastikan lokasi sesuai folder penyimpanan
+
+        // Hapus file gambar dari folder /img jika ada
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
+
+        // Hapus data dari database
+        $deleteQuery = "DELETE FROM foto WHERE id = ?";
+        $stmt = $conn->prepare($deleteQuery);
+        $stmt->bind_param("i", $id);
+        
+        if ($stmt->execute()) {
+            echo "<script>alert('Foto berhasil dihapus!'); window.location.href='index.php';</script>";
+        } else {
+            echo "<script>alert('Gagal menghapus foto dari database.'); window.location.href='index.php';</script>";
+        }
+    } else {
+        echo "<script>alert('Foto tidak ditemukan di database!'); window.location.href='index.php';</script>";
+    }
+} else {
+    echo "<script>alert('ID tidak valid!'); window.location.href='index.php';</script>";
+}
+?>
