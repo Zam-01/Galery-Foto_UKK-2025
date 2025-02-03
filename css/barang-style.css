@@ -1,0 +1,31 @@
+* {
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+.navbar {
+  /* background-color: #1b2232; */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
+/* card titel */
+.card-title {
+  letter-spacing: 0.1rem;
+}
+.card:hover {
+  /*scale: 1;
+  */
+  box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1),
+    0px 0px 15px 10px rgba(0, 0, 0, 0.1), 0px 0px 20px 15px rgba(0, 0, 0, 0.1);
+  transition: 0.4s linear;
+  -webkit-transition: 0.4s linear;
+  -moz-transition: 0.4s linear;
+  -ms-transition: 0.4s linear;
+  -o-transition: 0.4s linear;
+}
