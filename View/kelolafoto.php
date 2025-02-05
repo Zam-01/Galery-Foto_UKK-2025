@@ -11,7 +11,7 @@ $result = mysqli_query($conn, $query);
 
 
 ?>
-<main class="container mt-5 pt-5">
+<main class="container mt-3 pt-3">
      <div class="mb-3 mt-2 p-2">
           <a href="TambahFoto.php" class="btn btn-dark">Tambah Foto</a>
      </div>
@@ -41,7 +41,7 @@ $result = mysqli_query($conn, $query);
                     <td><?= $data['TanggalUnggah']; ?> WITA</td>
                     <td>
                          <a href="EditFoto.php?FotoID=<?= $data['FotoID']; ?>" class="btn btn-primary btn-sm">Edit</a>
-                         <a href="../query/DeleteFoto.php?FotoID=<?=$data['FotoID']; ?>" class="btn btn-danger btn-sm"
+                         <a href="../query/DeleteFoto.php?FotoID=<?= $data['FotoID']; ?>" class="btn btn-danger btn-sm"
                               onclick=" return confirm('Apakah Anda Yakin?')">Hapus</a>
                     </td>
                </tr>
